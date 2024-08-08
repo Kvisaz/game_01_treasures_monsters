@@ -30,12 +30,11 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.ts?$/,
           loader: "esbuild-loader",
           options: {
-            loader: "tsx",
-            target: "es2015"
-          }
+            target: 'es2015',
+          },
         }
       ]
     },

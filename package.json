@@ -1,6 +1,6 @@
 {
-  "name": "phaser-webpack-template",
-  "version": "1.1.1",
+  "name": "treasures-and-monsters",
+  "version": "1.2",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode development",
@@ -22,7 +22,7 @@
     "esbuild-loader": "^4.2.2",
     "html-webpack-plugin": "^5.6.0",
     "jest": "^29.7.0",
-    "phaser": "^3.80.1",
+    "phaser": "3.80.1",
     "prettier": "^3.3.3",
     "ts-jest": "^29.2.4",
     "typescript": "^5.5.4",
