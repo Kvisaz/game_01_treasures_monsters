@@ -59,13 +59,10 @@ export class TreasuresAndMonsters implements ISafeComponent {
 
     this.gameState = initGameState(this.config);
 
-    // this.mapGenerator = new SimpleMonoHexMapGenerator(this.config);
     this.terrainRulesMap = getTerrainRulesMap(this.config.terrainRules);
     console.log(`Start of ${Locale.text("game.name")} game!`);
     console.log("cardsOfTreasures", treasureCards.length);
     console.log("cardsOfMonsters", monsterCards.length);
-
-    // const startCells = this.mapGenerator.run();
 
     const { scene } = this.props;
 
