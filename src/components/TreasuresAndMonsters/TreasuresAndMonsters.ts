@@ -10,7 +10,7 @@ import { Locale } from "./data";
 import { SimpleGridPathMaker } from "../SpriteGrid/path";
 import { SimpleHexSelector } from "../SpriteGrid/selectors";
 import { GameCell, GameGrid, MonsterFigure, PlayerFigure, TreasureFigure } from "./components";
-import { getCellFigures, isCellBadTerrain, isCellHasFigures, SimpleMonoHexMapGenerator } from "./logic";
+import { getCellFigures, isCellBadTerrain, isCellHasFigures } from "./logic";
 import {
   IConfig,
   IGameCell,
@@ -19,14 +19,17 @@ import {
   IMapStartCell,
   IMonsterCombo,
   IPlayerCardCombo,
-  ITerrainRulesMap, ITreasureCard,
-  ITreasureCombo, IUiCard, IUiCardPositioned
+  ITerrainRulesMap,
+  ITreasureCard,
+  ITreasureCombo,
+  IUiCardPositioned
 } from "./interfaces";
 import { getTerrainRulesMap } from "./adapters";
 import { copyDeep, forEach2D } from "../../common";
 import { DungeonFigure } from "./components/figures/DungeonFigure";
 import {
-  collectTreasure, getPlayerAttack,
+  collectTreasure,
+  getPlayerAttack,
   initGameState,
   isEndMapPortalCanBeOpened,
   isPlayerDead,
@@ -47,11 +50,11 @@ export class TreasuresAndMonsters implements ISafeComponent {
   private readonly pathMaker: ISimpleGridPathMaker;
   private readonly terrainRulesMap: ITerrainRulesMap;
 
-  private gameState: IGameState;
+  private readonly gameState: IGameState;
 
   constructor(private props: IProps) {
     this.config = copyDeep(treasuresAndMonstersConfig);
-    const { treasureCards, monsterCards, playerCard, cellSize, columns, rows, positions } = this.config;
+    const { treasureCards, monsterCards, cellSize, columns, rows } = this.config;
     /** idea T&M2 -   выбор игрока в начале игры? **/
 
     this.gameState = initGameState(this.config);
@@ -189,7 +192,7 @@ export class TreasuresAndMonsters implements ISafeComponent {
    **/
   private onVoidCellClick(cell: IGameCell) {
     const { terrainRule } = cell;
-    const { type, speedK } = terrainRule;
+    const { type } = terrainRule;
     this.showCardInfo({
       title: `${type}`,
       description: `Просто пустой кусок пространства, заполенный ${type}`
@@ -428,7 +431,7 @@ export class TreasuresAndMonsters implements ISafeComponent {
   }
 
   private showPlayerCard() {
-    const { playerCard, health, inventory } = this.gameState.player;
+    const { playerCard, health } = this.gameState.player;
     const attack = getPlayerAttack(this.gameState);
     this.showCardInfo({
       title: `Вы ${playerCard.title}`,
@@ -437,7 +440,7 @@ export class TreasuresAndMonsters implements ISafeComponent {
   }
 
 
-  private showCardInfo({ title, description, imageKey, quote }: IUiCardPositioned) {
+  private showCardInfo({ title, description, quote }: IUiCardPositioned) {
     console.log("================");
     console.log(title);
     console.log(description);

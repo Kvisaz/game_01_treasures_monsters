@@ -5,8 +5,6 @@ export type ColumnRow = {
   column: number;
   row: number;
 };
-type Point = { x: number; y: number };
-
 
 /** Config **/
 export interface IConfig {
