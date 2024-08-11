@@ -72,7 +72,7 @@ export class TreasuresAndMonsters implements ISafeComponent {
       rows,
       cellSize,
       onClick: (cell) => this.onCellClick(cell as unknown as IGameCell),
-      terrains: this.gameState.cells,
+      terrains: this.gameState.startCells,
       terrainRulesMap: this.terrainRulesMap,
       terrainColors: this.config.terrainColors
     });
@@ -86,7 +86,7 @@ export class TreasuresAndMonsters implements ISafeComponent {
       rowMax: this.grid.rowsAmount - 1
     });
 
-    const cardFigures = this.addFigures(this.gameState.cells);
+    const cardFigures = this.addFigures(this.gameState.startCells);
     console.log("cardFigures", cardFigures.length);
     console.log("cardFigures", cardFigures);
     console.log("cardFigures monsters", cardFigures.filter((c) => c.combos.monsterCombo).length);

@@ -259,7 +259,13 @@ export interface IGameCellFigures {
  *  GameState
  ***********************/
 export interface IGameState {
-  cells: IMapStartCell[][];
+  /** to do это кандидат на удаление - они были для совместимости **/
+  startCells: IMapStartCell[][];
+  /** to do это кандидат на новое состояние
+   * - клетки с правилами клеток и только их
+   * - есть ли там фигуры - извлекается просто из перебора фигур
+   **/
+  cells2D?: ICellState[];
   finishMapPortal: {
     isOpened: boolean;
     column: number;
@@ -267,10 +273,11 @@ export interface IGameState {
     price: number;
   };
   /** сокровища без монстров **/
-  treasures: Record<CardId, ITreasureState>;
+  treasures: Record<FigureInGameId, ITreasureState>;
   /** монстры с сокровищами **/
-  monsters: Record<CardId, IMonsterState>;
+  monsters: Record<FigureInGameId, IMonsterState>;
   player: {
+    id: FigureInGameId,
     column: number;
     row: number;
     health: number;
@@ -288,6 +295,13 @@ export interface IGameState {
   };
 }
 
+/** состояние ячейки на поле **/
+export interface ICellState {
+  /** тип поверхности **/
+  terrainRule: ITerrainRule;
+  /** фигуры в ячейке не нужны так как мы можем их быстро извлекать перебором **/
+  // figures: Record<FigureInGameId, FigureInGameId>;
+}
 
 export interface ITreasureState {
   card: ITreasureCard;
@@ -306,7 +320,11 @@ export interface IMonsterState {
   isAlive: boolean;
 }
 
-export type CardId = number;
+/**
+ * уникальный для всех игровых фигур id в игре
+ * не должно быть одинаковых id даже для фигур разных типов
+ **/
+export type FigureInGameId = number;
 
 /************************
  *  Видимая карточка

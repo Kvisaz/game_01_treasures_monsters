@@ -1,4 +1,5 @@
 import { IGameState } from "../../interfaces";
+import { getNewGameFigureId } from "../utils";
 
 export const defaultGameState: IGameState = {
   finishMapPortal: {
@@ -10,6 +11,7 @@ export const defaultGameState: IGameState = {
   treasures: {},
   monsters: {},
   player: {
+    id: getNewGameFigureId(),
     column: 0, row: 0,
     health: 3,
     playerCard: {
@@ -32,5 +34,5 @@ export const defaultGameState: IGameState = {
       }
     }
   },
-  cells: []
+  startCells: []
 };

@@ -1,13 +1,13 @@
 import { copyDeep, forEach2D } from "../../../../../common";
-import { CardId, IConfig, IGameState, IMonsterState, ITreasureState } from "../../../interfaces";
+import { FigureInGameId, IConfig, IGameState, IMonsterState, ITreasureState } from "../../../interfaces";
 import { defaultGameState } from "../defaultState";
 import { SimpleMonoHexMapGenerator } from "../../mapGenerators";
 
 export const initGameState = (gameConfig: IConfig): IGameState => {
   const { playerCard, positions } = gameConfig;
 
-  const treasures: Record<CardId, ITreasureState> = {};
-  const monsters: Record<CardId, IMonsterState> = {};
+  const treasures: Record<FigureInGameId, ITreasureState> = {};
+  const monsters: Record<FigureInGameId, IMonsterState> = {};
 
   const cells = new SimpleMonoHexMapGenerator(gameConfig).run();
 
@@ -46,7 +46,7 @@ export const initGameState = (gameConfig: IConfig): IGameState => {
     },
     treasures,
     monsters,
-    cells,
+    startCells: cells,
     finishMapPortal: defaultGameState.finishMapPortal
   };
 
