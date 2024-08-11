@@ -1,6 +1,6 @@
 {
   "name": "treasures-and-monsters",
-  "version": "1.23",
+  "version": "1.24",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode development",

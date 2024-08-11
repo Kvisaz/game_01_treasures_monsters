@@ -13,7 +13,8 @@
 export class StateEvent<TState> {
   public subscribers = new Set<StateObserver<TState>>();
 
-  constructor(protected state?: TState) {}
+  constructor(protected state?: TState) {
+  }
 
   getState(): TState | undefined {
     return this.state;
@@ -69,7 +70,16 @@ export class State<T> extends StateEvent<T> {
   getState(): T {
     return this.state;
   }
+
+  setState(state: StateReducer<T> | T) {
+    const newState = typeof state === "function" ? (state as StateReducer<T>)(this.state) : state;
+    this.subscribers.forEach((fn) => {
+      fn(newState);
+    });
+    this.state = newState;
+  }
 }
 
 export type UnSubscriber = () => void;
 export type StateObserver<TState> = (state: TState) => void;
+export type StateReducer<TState> = (state: TState) => TState;
