@@ -27,11 +27,11 @@ export class HexGrid extends Phaser.GameObjects.Container {
       this.add(gameObject);
     });
 
-    const { resetCamera, isInputAllowed } = setupCameraDrag({ scene, container: this });
+    const { resetCamera, isInputAllowed } = setupCameraDrag({ scene, gameObject: this });
     this.resetCamera = resetCamera;
 
     clickables?.forEach((clickable: GameObject) => {
-      clickable.setInteractive();
+      clickable.setInteractive({ useHandCursor: true });
       clickable.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
         if (!isInputAllowed()) return;
         const columnRow = clickable.getData("columnRow") as ColumnRow | undefined;
@@ -52,4 +52,3 @@ export class HexGrid extends Phaser.GameObjects.Container {
     this.resetCamera?.();
   }
 }
-

@@ -1,13 +1,18 @@
+import { GameObject } from "../../../../common";
+
 interface IProps {
   scene: Phaser.Scene;
-  container: Phaser.GameObjects.Container;
+  gameObject: GameObject;
+  // Порог начала драггинга в пикселях
+  dragThreshold?: number;
+  // Порог начала драггинга в ms
+  dragTimeThreshold?: number;
 }
 
 /**
- *  Сделать драггинг камеры по границам контейнера с объектами
- *  по объектам можно кликать
+ *  Сделать драггинг камеры по границам объекта
  **/
-export function setupCameraDrag({ scene, container }: IProps) {
+export function setupCameraDrag({ scene, gameObject, dragThreshold = 15, dragTimeThreshold = 500 }: IProps) {
   const camera = scene.cameras.main;
   const prevX = camera.scrollX;
   const prevY = camera.scrollX;
@@ -19,9 +24,9 @@ export function setupCameraDrag({ scene, container }: IProps) {
   let isDragging = false;
   let startX: number, startY: number;
   let pointerStartX: number, pointerStartY: number;
-  const dragThreshold: number = 14; // Порог начала драггинга в пикселях
+  let pointerDownTime: number;
 
-  const containerBounds = container.getBounds();
+  const containerBounds = gameObject.getBounds();
 
   const isInputAllowed = () => !isDragging;
 
@@ -31,16 +36,25 @@ export function setupCameraDrag({ scene, container }: IProps) {
     startY = camera.scrollY;
     pointerStartX = pointer.x;
     pointerStartY = pointer.y;
+    pointerDownTime = Date.now();
   });
 
+  /** Обработчик мышки следит за относительным сдвигом сам
+   *  но начинает это делать только после нажатия
+   *  и после того как срабатывает dragTimeThreshold или dragThreshold
+   **/
   scene.input.on("pointermove", (pointer: Phaser.Input.Pointer) => {
-    if(!isPointerDown) return;
+    if (!isPointerDown) return;
 
     if (!isDragging) {
       const distanceMoved = Phaser.Math.Distance.Between(
         pointerStartX, pointerStartY, pointer.x, pointer.y
       );
-      if (distanceMoved >= dragThreshold) {
+      const isDistanceThreshold = distanceMoved >= dragThreshold;
+      const dragTime = Date.now() - pointerDownTime;
+      const isTimeThreshold = dragTime >= dragTimeThreshold;
+
+      if (isDistanceThreshold && isTimeThreshold) {
         isDragging = true;
       }
     }
