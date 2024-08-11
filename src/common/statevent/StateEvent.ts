@@ -3,6 +3,7 @@
  *  - emit for fire
  *  - on for subscribe
  *    - on return off (unsubscribe callback)
+ *    - look for changes for some fields (optional keys) -- 2024.08.11
  *  - unsubscribeAll
  *  - getState for previous value
  *  - no async  - ожидание завершения обработчика на самом деле сложно и не тривиально
