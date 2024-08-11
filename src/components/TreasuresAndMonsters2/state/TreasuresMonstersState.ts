@@ -1,6 +1,6 @@
 import { IConfig } from "../config";
-import { ICellState } from "../interfaces";
-import { MapGenerator1 } from "../logic/mapGenerators";
+import { ICellState, ITerrainRule } from "../interfaces";
+import { generateGrassCells2D } from "../logic/mapGenerators/generateCells2D";
 
 export interface ITreasuresMonstersState {
   /** клетки на карте мира - проходимость, тип местности **/
@@ -13,13 +13,9 @@ interface IProps {
 
 export const newTreasuresMonstersState = (props: IProps): ITreasuresMonstersState => {
 
-  const map = MapGenerator1.run({
-    columns: props.config.columns,
-    rows: props.config.rows,
-    terrainRules: Object.values(props.config.terrainRules)
-  });
+  const { columns, rows, terrainRules } = props.config;
 
   return {
-    cells2D: map.cells2D
+    cells2D: generateGrassCells2D(columns, rows, [...terrainRules] as ITerrainRule[]).cells2D
   };
 };

@@ -1,1 +1,2 @@
-export * from './MapGenerator1';
+export * from './generateCells2D';
+export * from './terrainSelectors';
