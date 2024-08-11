@@ -1,4 +1,4 @@
-import { ITerrainCell, ITerrainGenerator, ITerrainRule, TerrainType } from "../../../../interfaces";
+import { ITerrainCell, TerrainType } from "../../../../interfaces";
 import { makeArray2D } from "../../../../../../common";
 
 interface IProps {

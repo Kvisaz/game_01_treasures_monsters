@@ -19,11 +19,11 @@ export type TerrainType = TerrainRule['type'];
 
 
 /** to do move to components **/
-export const terrainColors = {
+export const terrainColors: Record<TerrainType, string> = {
   "mountain": "#5d1d06", // Приятный коричневатый цвет для гор
   "water": "#4682B4", // Спокойный синий цвет для воды
   "forest": "#005e00", // Темно-зеленый цвет для леса
   "sand": "#fce76c", // Светло-коричневый цвет для песка
   "grass": "#477242", // Яркий зеленый цвет для травы
   "ground": "#675437" // Земляной коричневый цвет
-};
+} as const;

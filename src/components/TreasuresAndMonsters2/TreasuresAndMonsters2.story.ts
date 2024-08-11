@@ -4,7 +4,7 @@ import { newTreasuresMonstersState } from "./state";
 import { tmConfig2 } from "./config";
 
 export const treasuresAndMonsters2Story: IStory = {
-  title: "TreasuresAndMonsters2",
+  title: "Treasures And Monsters 2",
   run: async (scene) => {
     const config = tmConfig2;
     const gameState = newTreasuresMonstersState({ config });
