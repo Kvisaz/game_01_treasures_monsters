@@ -12,6 +12,7 @@
  */
 export class StateEvent<TState> {
   public subscribers = new Set<StateObserver<TState>>();
+  protected prevState?: TState;
 
   constructor(protected state?: TState) {
   }
@@ -20,10 +21,20 @@ export class StateEvent<TState> {
     return this.state;
   }
 
-  on(callback: StateObserver<TState>): UnSubscriber {
-    this.subscribers.add(callback);
+  on(callback: StateObserver<TState>, keys?: keyof TState | (keyof TState)[]): UnSubscriber {
+    const selectedCallback: StateObserver<TState> = keys == null ? callback : (state: TState) => {
+      const observedKeys = Array.isArray(keys) ? keys : [keys];
+      const { prevState } = this;
+
+      // проверка что изменились некоторые ключи
+      if (prevState == null || state == null || observedKeys.some(key => prevState[key] !== state[key])) {
+        callback(state);
+      }
+    };
+
+    this.subscribers.add(selectedCallback);
     return () => {
-      this.subscribers.delete(callback);
+      this.subscribers.delete(selectedCallback);
     };
   }
 
@@ -32,10 +43,7 @@ export class StateEvent<TState> {
       callback(state);
       this.subscribers.delete(autoUnSub);
     };
-    this.subscribers.add(autoUnSub);
-    return () => {
-      this.subscribers.delete(autoUnSub);
-    };
+    return this.on(autoUnSub);
   }
 
   async await(): Promise<TState> {
@@ -43,6 +51,7 @@ export class StateEvent<TState> {
   }
 
   setState(state: TState) {
+    this.prevState = this.state != null ? this.state : this.prevState;
     this.subscribers.forEach((fn) => {
       fn(state);
     });
@@ -72,6 +81,7 @@ export class State<T> extends StateEvent<T> {
   }
 
   setState(state: StateReducer<T> | T) {
+    this.prevState = this.state != null ? this.state : this.prevState;
     const newState = typeof state === "function" ? (state as StateReducer<T>)(this.state) : state;
     this.subscribers.forEach((fn) => {
       fn(newState);
