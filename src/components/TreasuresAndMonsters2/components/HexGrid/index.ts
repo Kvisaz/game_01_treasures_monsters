@@ -1,5 +1,6 @@
 import { addCameraDraggingToObject, forEach2D, GameObject, setLeftTop } from "../../../../common";
 import Pointer = Phaser.Input.Pointer;
+import { setupCameraDrag } from "./setupCameraDrag";
 
 type ColumnRow = { column: number, row: number };
 
@@ -23,20 +24,21 @@ export class HexGrid extends Phaser.GameObjects.Container {
 
   constructor(private props: IProps) {
     super(props.scene);
-
+    const { scene } = props;
     const { cells2D, cellBuilder } = this.props;
-
+    const clickables: GameObject[] = [];
     forEach2D(cells2D, columnRow => {
       const gameObject = cellBuilder(columnRow);
+      clickables.push(gameObject);
       this.add(gameObject);
     });
 
     this.inputRect = this.createInputRect();
     this.addAt(this.inputRect);
 
-    this.bindEvents();
-
-    props.scene.add.existing(this);
+    // this.bindEvents();
+    this.resetCamera = setupCameraDrag({ clickables, scene, container: this });
+    scene.add.existing(this);
   }
 
   destroy(fromScene?: boolean) {
@@ -62,7 +64,7 @@ export class HexGrid extends Phaser.GameObjects.Container {
   private bindEvents() {
     this.inputRect.setInteractive({
       useHandCursor: true,
-      draggable: true,
+      draggable: true
     });
 
     this.bindClick();
@@ -80,8 +82,8 @@ export class HexGrid extends Phaser.GameObjects.Container {
       if (this.isInputDragging) {
         return;
       }
-      console.log('click on cell', x, y, pointer);
-      console.log('args', ...args);
+      console.log("click on cell", x, y, pointer);
+      console.log("args", ...args);
       // const cell = this.getCellByXY(x, y);
 
       // if (cell == null) {
@@ -93,8 +95,6 @@ export class HexGrid extends Phaser.GameObjects.Container {
       // }
     });
   }
-
-
 
 
   private bindDraggingCamera() {
@@ -114,8 +114,9 @@ export class HexGrid extends Phaser.GameObjects.Container {
         delay: DRAG_TIME_BEFORE_CLICK,
         callback: () => {
           this.isInputDragging = false;
-        },
+        }
       });
     });
   }
 }
+
