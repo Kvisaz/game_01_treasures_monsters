@@ -52,6 +52,7 @@ export class TreasuresAndMonsters2 {
   }
 
   destroy() {
+    this.gameField.destroy();
     this.unSubs.forEach(unSub => unSub());
     this.unSubs = [];
   }
