@@ -75,12 +75,13 @@ export class HexGrid extends Phaser.GameObjects.Container {
      * чтобы не перегружать код обычных тайлов
      * и иметь возможность разруливать настройку драггинга и кликов в одном месте
      **/
-    this.inputRect.on(CLICK_EVENT, (pointer: Pointer) => {
+    this.inputRect.on(CLICK_EVENT, (pointer: Pointer, ...args: unknown[]) => {
       const { worldX: x, worldY: y } = pointer;
       if (this.isInputDragging) {
         return;
       }
-      console.log('click on cell');
+      console.log('click on cell', x, y, pointer);
+      console.log('args', ...args);
       // const cell = this.getCellByXY(x, y);
 
       // if (cell == null) {
