@@ -28,6 +28,9 @@ export class TreasuresAndMonsters2 {
     this.gameField = new HexGrid({
       scene,
       cells2D: this.gameState.cells2D,
+      onClick: columnRow => {
+        console.log("gameField onclick", columnRow.column, columnRow.row);
+      },
       cellBuilder: ({ column, row }) => {
         const terrainType = this.gameState.cells2D[column][row].terrain.type as TerrainType;
         const color = terrainColors[terrainType] as string;

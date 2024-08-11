@@ -1,17 +1,13 @@
-import { GameObject } from "../../../../common";
-
-
 interface IProps {
   scene: Phaser.Scene;
   container: Phaser.GameObjects.Container;
-  clickables?: GameObject[];
 }
 
 /**
  *  Сделать драггинг камеры по границам контейнера с объектами
  *  по объектам можно кликать
  **/
-export function setupCameraDrag({ scene, container, clickables }: IProps): () => void {
+export function setupCameraDrag({ scene, container }: IProps) {
   const camera = scene.cameras.main;
   const prevX = camera.scrollX;
   const prevY = camera.scrollX;
@@ -19,22 +15,40 @@ export function setupCameraDrag({ scene, container, clickables }: IProps): () =>
     camera.scrollX = prevX;
     camera.scrollY = prevY;
   };
-  let isDragging: boolean = false;
+  let isPointerDown = false;
+  let isDragging = false;
   let startX: number, startY: number;
+  let pointerStartX: number, pointerStartY: number;
+  const dragThreshold: number = 14; // Порог начала драггинга в пикселях
+
   const containerBounds = container.getBounds();
 
+  const isInputAllowed = () => !isDragging;
+
   scene.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
-    isDragging = true;
-    startX = pointer.x + camera.scrollX;
-    startY = pointer.y + camera.scrollY;
-    console.log("pointerdown");
+    isPointerDown = true;
+    startX = camera.scrollX;
+    startY = camera.scrollY;
+    pointerStartX = pointer.x;
+    pointerStartY = pointer.y;
   });
 
   scene.input.on("pointermove", (pointer: Phaser.Input.Pointer) => {
-    console.log("pointermove");
+    if(!isPointerDown) return;
+
+    if (!isDragging) {
+      const distanceMoved = Phaser.Math.Distance.Between(
+        pointerStartX, pointerStartY, pointer.x, pointer.y
+      );
+      if (distanceMoved >= dragThreshold) {
+        isDragging = true;
+      }
+    }
+
+
     if (isDragging) {
-      const deltaX: number = startX - pointer.x;
-      const deltaY: number = startY - pointer.y;
+      const deltaX: number = pointerStartX - pointer.x + startX;
+      const deltaY: number = pointerStartY - pointer.y + startY;
 
       // Ограничиваем движение камеры размерами контейнера
       camera.scrollX = Phaser.Math.Clamp(
@@ -51,22 +65,9 @@ export function setupCameraDrag({ scene, container, clickables }: IProps): () =>
   });
 
   scene.input.on("pointerup", () => {
-    console.log("pointerup");
     isDragging = false;
+    isPointerDown = false;
   });
 
-  // Добавляем обработку кликов по ячейкам
-  clickables?.forEach((child: GameObject) => {
-    child.setInteractive();
-    child.on("pointerdown", (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Phaser.Types.Input.EventData) => {
-      if (!isDragging) {
-        // Обработка клика по ячейке
-        console.log("Клик по ячейке:", child);
-        // Здесь можно добавить вашу логику обработки клика
-      }
-      // event.stopPropagation(); // Предотвращаем распространение события
-    });
-  });
-
-  return resetCamera;
+  return { resetCamera, isInputAllowed };
 }
