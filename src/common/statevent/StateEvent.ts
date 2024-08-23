@@ -94,3 +94,4 @@ export class State<T> extends StateEvent<T> {
 export type UnSubscriber = () => void;
 export type StateObserver<TState> = (state: TState) => void;
 export type StateReducer<TState> = (state: TState) => TState;
+export type OnListener<TState> = (callback: StateObserver<TState>, keys?: keyof TState | (keyof TState)[]) => UnSubscriber
