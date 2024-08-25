@@ -1,13 +1,13 @@
-import { forEach2D, GameObject } from "../../../../common";
+import { forEach2DWithoutArray, GameObject } from "../../../../common";
 import { setupCameraDrag } from "./setupCameraDrag";
 
-type ColumnRow = { column: number, row: number };
 
 interface IProps {
   scene: Phaser.Scene;
-  cells2D: ColumnRow[][];
-  cellBuilder: (columnRow: ColumnRow) => GameObject;
-  onClick: (columnRow: ColumnRow) => void;
+  columns: number;
+  rows: number;
+  cellBuilder: (column: number, row: number) => GameObject;
+  onClick: (column: number, row: number) => void;
 }
 
 /** to do если не будет привязки к логике - выноси в общие **/
@@ -18,11 +18,12 @@ export class HexGrid extends Phaser.GameObjects.Container {
 
   constructor(private props: IProps) {
     super(props.scene);
-    const { scene, cellBuilder, cells2D, onClick } = props;
+    const { scene, cellBuilder, columns, rows, onClick } = props;
     const clickables: GameObject[] = [];
-    forEach2D(cells2D, columnRow => {
-      const gameObject = cellBuilder(columnRow);
-      gameObject.setData("columnRow", columnRow);
+    forEach2DWithoutArray(columns, rows, (column, row) => {
+      const gameObject = cellBuilder(column, row);
+      gameObject.setData("column", column);
+      gameObject.setData("row", row);
       clickables.push(gameObject);
       this.add(gameObject);
     });
@@ -34,11 +35,13 @@ export class HexGrid extends Phaser.GameObjects.Container {
       clickable.setInteractive({ useHandCursor: true });
       clickable.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
         if (!isInputAllowed()) return;
-        const columnRow = clickable.getData("columnRow") as ColumnRow | undefined;
-        if(columnRow){
-          onClick(columnRow);
+        const column = clickable.getData("column") as number | undefined;
+        const row = clickable.getData("row") as number | undefined;
+
+        if (column != null && row != null) {
+          onClick(column, row);
         } else {
-          console.error('no columnRow data for clickable object', clickable);
+          console.error("no columnRow data for clickable object", clickable);
         }
       });
     });

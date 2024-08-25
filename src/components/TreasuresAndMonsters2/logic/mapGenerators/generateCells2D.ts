@@ -18,7 +18,7 @@ interface IResult {
 export function generateCells2D({ columns, rows, terrainSelector }: IProps): IResult {
   const cells2D = makeArray2D(columns, rows, (column, row) => {
     return {
-      column, row, terrain: terrainSelector({ column, row })
+      terrainRule: terrainSelector({ column, row })
     };
   });
 

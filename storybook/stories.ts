@@ -4,10 +4,12 @@ import { treasuresAndMonstersStory } from "../src/components/TreasuresAndMonster
 import { testGameStateStory } from "../src/components/gamestates/TestGameState/TestGameState.story";
 import { treasuresAndMonsters2Story } from "../src/components/TreasuresAndMonsters2";
 import { tmGameEventsStory, tmGameStateStory } from "../src/components";
+import { tmStoreStory } from "../src/components/gamestates/TMGameState/TMStore.story";
 
 export const stories: IStoryListItem[] = Array.from(
   new Set<IStoryListItem>([
     storyTitle("State Test"),
+    tmStoreStory,
     tmGameEventsStory,
     tmGameStateStory,
     testGameStateStory,

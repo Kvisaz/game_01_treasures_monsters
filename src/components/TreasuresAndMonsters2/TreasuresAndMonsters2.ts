@@ -1,18 +1,17 @@
-import { ITreasuresMonstersState } from "./state";
-import { IConfig, terrainColors, TerrainType } from "./config";
+import { IConfig, terrainColors } from "./config";
 import { HexGrid } from "./components";
 import { Align, HexStrategy } from "../../common";
 import { HexCellView } from "./components/HexCellView";
+import { TMStore } from "../gamestates";
 
 interface IProps {
   scene: Phaser.Scene;
   config: IConfig;
-  gameState: ITreasuresMonstersState;
+  store: TMStore
 }
 
 export class TreasuresAndMonsters2 {
   private unSubs: (() => void)[] = [];
-  private readonly gameState: ITreasuresMonstersState;
   private readonly gridStrategy: HexStrategy;
   private readonly gameField: HexGrid;
 
@@ -20,19 +19,20 @@ export class TreasuresAndMonsters2 {
    *  по состоянию
    **/
   constructor(private props: IProps) {
-    this.gameState = props.gameState;
     this.gridStrategy = new HexStrategy({ cellSize: props.config.cellSize });
 
     const { scene, config } = this.props;
     const { cellSize } = config;
     this.gameField = new HexGrid({
       scene,
-      cells2D: this.gameState.cells2D,
-      onClick: columnRow => {
-        console.log("gameField onclick", columnRow.column, columnRow.row);
+      columns: config.columns,
+      rows: config.rows,
+      onClick: (column, row) => {
+        console.log("2024 08 25 gameField onclick", column, row);
       },
-      cellBuilder: ({ column, row }) => {
-        const terrainType = this.gameState.cells2D[column][row].terrain.type as TerrainType;
+      cellBuilder: (column, row ) => {
+        // const terrainType = this.gameState.cells2D[column][row].terrain.type as TerrainType;
+        const terrainType = 'grass';
         const color = terrainColors[terrainType] as string;
         const cell = new HexCellView({
           scene,
@@ -55,6 +55,7 @@ export class TreasuresAndMonsters2 {
   }
 
   destroy() {
+    this.props.store.destroy();
     this.gameField.destroy();
     this.unSubs.forEach(unSub => unSub());
     this.unSubs = [];

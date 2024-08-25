@@ -19,6 +19,8 @@ const TMEvents = {
   }>()
 } as const;
 
+export type TMEventsType = typeof TMEvents;
+
 function unSubscribeAll<T extends Record<string, StateEvent<unknown>>>(events: T) {
   Object.values(events).forEach(e => e.unSubScribeAll());
 }
