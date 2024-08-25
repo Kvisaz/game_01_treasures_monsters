@@ -1,6 +1,7 @@
 import { State } from "../../../common";
 import { TMGameState } from "./TMGameState";
 import { TMEventsType, useTMEvents } from "./TMEvents";
+import { IConfig } from "../../TreasuresAndMonsters2/config";
 
 const voidState: TMGameState = {
   cells: [],
@@ -22,10 +23,11 @@ const voidState: TMGameState = {
 export class TMStore {
   readonly events: TMEventsType;
   readonly state: State<TMGameState>
-  constructor() {
+
+  constructor(initState?: Partial<TMGameState>) {
     const eventStore = useTMEvents();
     this.events = eventStore.events;
-    this.state = new State<TMGameState>({ ...voidState });
+    this.state = new State<TMGameState>({ ...voidState, ...initState });
   }
 
   destroy(){

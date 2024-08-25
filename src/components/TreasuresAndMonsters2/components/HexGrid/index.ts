@@ -28,7 +28,10 @@ export class HexGrid extends Phaser.GameObjects.Container {
       this.add(gameObject);
     });
 
-    const { resetCamera, isInputAllowed } = setupCameraDrag({ scene, gameObject: this });
+    const { resetCamera, isInputAllowed } = setupCameraDrag({ scene,
+      gameObject: this,
+      dragTimeThreshold: 120,
+      dragThreshold: 10 });
     this.resetCamera = resetCamera;
 
     clickables?.forEach((clickable: GameObject) => {

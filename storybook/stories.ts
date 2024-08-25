@@ -8,13 +8,13 @@ import { tmStoreStory } from "../src/components/gamestates/TMGameState/TMStore.s
 
 export const stories: IStoryListItem[] = Array.from(
   new Set<IStoryListItem>([
+    storyTitle("Treasures and Monster New"),
+    treasuresAndMonsters2Story,
     storyTitle("State Test"),
     tmStoreStory,
     tmGameEventsStory,
     tmGameStateStory,
     testGameStateStory,
-    storyTitle("Treasures and Monster 1"),
-    treasuresAndMonsters2Story,
     storyTitle("Old Treasures and Monster"),
     treasuresAndMonstersStory,
     storyTitle("Test Components"),
