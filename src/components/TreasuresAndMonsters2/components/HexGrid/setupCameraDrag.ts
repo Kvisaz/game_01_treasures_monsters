@@ -29,6 +29,10 @@ export function setupCameraDrag({ scene, gameObject, dragThreshold = 15, dragTim
   const containerBounds = gameObject.getBounds();
 
   const isInputAllowed = () => !isDragging;
+  const stopDragging = () => {
+    isDragging = false;
+    isPointerDown = false;
+  };
 
   scene.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
     isPointerDown = true;
@@ -37,6 +41,10 @@ export function setupCameraDrag({ scene, gameObject, dragThreshold = 15, dragTim
     pointerStartX = pointer.x;
     pointerStartY = pointer.y;
     pointerDownTime = Date.now();
+  });
+
+  scene.input.on(Phaser.Input.Events.GAME_OUT, function() {
+    stopDragging();
   });
 
   /** Обработчик мышки следит за относительным сдвигом сам
@@ -79,8 +87,7 @@ export function setupCameraDrag({ scene, gameObject, dragThreshold = 15, dragTim
   });
 
   scene.input.on("pointerup", () => {
-    isDragging = false;
-    isPointerDown = false;
+    stopDragging();
   });
 
   return { resetCamera, isInputAllowed };
