@@ -8,7 +8,5 @@ export interface ITerrainRule {
 }
 
 export interface ICellState {
-  column: number;
-  row: number;
-  terrain: ITerrainRule;
+  terrainRule: ITerrainRule;
 }

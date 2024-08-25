@@ -1,14 +1,11 @@
 import { IStory } from "../../../../storybook/interfaces";
 import { asyncFlow, delay } from "../../../common";
-import { getNewTMGameState } from "./TMGameState";
 
 export const tmGameStateStory: IStory = {
   title: "Test Game State",
   run: async () => {
-    const store = getNewTMGameState({ columns: 4, rows: 4 });
-    store.on(state => console.log("state 1 changed", state));
-    console.log("state 1 init", store.getState());
 
+    console.log('void test');
     const { cancel, run } = asyncFlow([
       async () => console.log("state changes started"),
       () => delay(1000),
@@ -29,7 +26,7 @@ export const tmGameStateStory: IStory = {
 
     return () => {
       cancel();
-      store.unSubScribeAll();
+      // store.unSubScribeAll();
       console.log("cleared");
     };
   }
