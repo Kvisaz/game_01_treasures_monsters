@@ -1,11 +1,11 @@
 import { IStory } from "../../../../storybook/interfaces";
 import { asyncFlow, delay } from "../../../common";
-import { TMStore } from "./store";
+import { getVoidState, TMStore } from "./store";
 
 export const tmStoreStory: IStory = {
   title: "Test Store",
   run: async () => {
-    const store = new TMStore();
+    const store = new TMStore(getVoidState());
 
     store.state.on(state => console.log("state changed"));
     store.state.on(state => console.log("playerHealth changed", state.playerHealth), "playerHealth");

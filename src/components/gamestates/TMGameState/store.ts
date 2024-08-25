@@ -1,7 +1,6 @@
 import { State } from "../../../common";
 import { TMGameState } from "./TMGameState";
 import { TMEventsType, useTMEvents } from "./TMEvents";
-import { IConfig } from "../../TreasuresAndMonsters2/config";
 
 const voidState: TMGameState = {
   cells: [],
@@ -17,20 +16,21 @@ const voidState: TMGameState = {
   playerTreasures: {},
   records: { cards: {}, cellTypes: {}, terrainRules: {} },
   treasuresInGame: {}
-
 };
+
+export const getVoidState = () => JSON.parse(JSON.stringify(voidState)) as TMGameState;
 
 export class TMStore {
   readonly events: TMEventsType;
-  readonly state: State<TMGameState>
+  readonly state: State<TMGameState>;
 
-  constructor(initState?: Partial<TMGameState>) {
+  constructor(initState: TMGameState) {
     const eventStore = useTMEvents();
     this.events = eventStore.events;
-    this.state = new State<TMGameState>({ ...voidState, ...initState });
+    this.state = new State<TMGameState>(initState);
   }
 
-  destroy(){
+  destroy() {
     const eventStore = useTMEvents();
     eventStore.unsubscribeAll();
     this.state.unSubScribeAll();
