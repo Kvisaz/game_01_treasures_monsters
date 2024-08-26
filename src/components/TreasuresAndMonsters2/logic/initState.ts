@@ -1,7 +1,7 @@
 import { IConfig } from "../config";
 import { getVoidState, TMGameState, TMTerrainType } from "../../gamestates";
 import { mapCardsFromConfig, mapCellTypesFromConfig, mapTerrainRulesFromConfig } from "./mappers";
-import { generateMonoTerrainCellIds } from "./mapGenerators";
+import { generateMonoPlayerTerrainCellIds, generateMonoTerrainCellIds } from "./mapGenerators";
 
 export function initState(config: IConfig): TMGameState {
   const state = getVoidState();
@@ -16,8 +16,12 @@ export function initState(config: IConfig): TMGameState {
 
   state.records.cards = mapCardsFromConfig(config);
   console.log("state.records.cards", state.records.cards);
+
+  console.log("initState  --- player ");
+  state.playerHeroCardPlace = { column: 1, row: 1 };
+
   console.log("initState  --- records is done ");
-  state.cells = generateMonoTerrainCellIds(config, state, TMTerrainType.grass);
+  state.cells = generateMonoPlayerTerrainCellIds(config, state, TMTerrainType.grass);
   console.log("initState  --- cells ", state.cells);
   console.log("todo initState  --- make cells ");
 
