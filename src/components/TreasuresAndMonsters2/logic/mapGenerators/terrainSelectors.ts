@@ -1,14 +1,15 @@
 import { ITerrainRule } from "../../interfaces";
 import { ConfigTerrainRule, ConfigTerrainType } from "../../config";
+import { TMTerrainType } from "../../../gamestates";
 
-/** get mono terrain  **/
+/** @deprecated  get mono terrain  **/
 export function getMonoTerrainBuilder(terrainRules: ITerrainRule[], key?: ConfigTerrainType): () => ConfigTerrainRule {
-  const terrainType: ConfigTerrainType = key == null ? "grass" : key;
+  const terrainType: ConfigTerrainType = key == null ? TMTerrainType.grass : key;
 
   return () => (terrainRules.find(rule => rule.type === terrainType) ?? terrainRules[0]) as ConfigTerrainRule;
 }
 
-/** get a random terrain type based on probability **/
+/** @deprecated get a random terrain type based on probability **/
 export function getRandomTerrainBuilder(terrainRules: ITerrainRule[]): () => ConfigTerrainRule {
   const totalProbability = terrainRules.reduce((sum, rule) => sum + rule.probability, 0);
 

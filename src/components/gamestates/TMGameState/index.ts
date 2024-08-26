@@ -4,3 +4,4 @@ export * from './TMEvents';
 export * from './TMGameEvents.story';
 export * from './store';
 export * from './TMStore.story';
+export * from './selectors';

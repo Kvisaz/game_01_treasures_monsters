@@ -2,7 +2,7 @@ import { IConfig, terrainColors } from "./config";
 import { HexGrid } from "./components";
 import { Align, HexStrategy } from "../../common";
 import { HexCellView } from "./components/HexCellView";
-import { TMStore } from "../gamestates";
+import { select, TMStore } from "../gamestates";
 
 interface IProps {
   scene: Phaser.Scene;
@@ -20,8 +20,7 @@ export class TreasuresAndMonsters2 {
    **/
   constructor(private props: IProps) {
     this.gridStrategy = new HexStrategy({ cellSize: props.config.cellSize });
-
-    const { scene, config } = this.props;
+    const { scene, config, store } = this.props;
     const { cellSize } = config;
     this.gameField = new HexGrid({
       scene,
@@ -31,9 +30,8 @@ export class TreasuresAndMonsters2 {
         console.log("2024 08 25 gameField onclick", column, row);
       },
       cellBuilder: (column, row ) => {
-        // const terrainType = this.gameState.cells2D[column][row].terrain.type as TerrainType;
-        const terrainType = 'grass';
-        const color = terrainColors[terrainType] as string;
+        const cellFullData = store.select().cell(column, row);
+        const color = terrainColors[cellFullData.terrain.type] as string;
         const cell = new HexCellView({
           scene,
           color,

@@ -52,15 +52,13 @@
  * - WIN сокровища собраны до определенной нормы и жизнь игрока > 0
  * - FAIL - игрок убит, жизнь игрока <= 0
  **/
-import { ConfigTerrainRule } from "../../TreasuresAndMonsters2/config";
-
 export interface TMGameState {
   /** нормализованные базы с быстрым доступом по id **/
   records: {
     /** ячейки поля **/
     cellTypes: IdRecord<IdCellType>;
     /** правила земли - тип, скорость перемещения, частота генерации **/
-    terrainRules: IdRecord<ConfigTerrainRule>;
+    terrainRules: IdRecord<ITerrain>;
     /** доступные карты в игре **/
     cards: IdRecord<ICard>;
   };
@@ -81,7 +79,7 @@ export interface TMGameState {
   playerHeroCardId: Id;
   playerHeroCardPlace: ColumnRow;
   /** сокровища игрока не видны на поле, но влияют на его параметры **/
-  playerTreasures: IdRecord<boolean>;
+  playerTreasures: FlagRecord;
   /** параметры которые могут меняться от сбора сокровищ  **/
 
   /** @subscribe -UI-subscribe **/
@@ -113,7 +111,7 @@ export interface TMGameState {
    *
    * Id - cards, value = true, если убит
    * **/
-  monstersGraveYard: IdRecord<boolean>;
+  monstersGraveYard: FlagRecord;
 
   /**
    * Сокровища
@@ -133,7 +131,7 @@ export interface TMGameState {
   /** вскрытые подземелья помечаются этой записью
    * Id - card, value = true, если открыто
    **/
-  dungeonsOpened: IdRecord<boolean>;
+  dungeonsOpened: FlagRecord;
 }
 
 /*********************
@@ -150,7 +148,9 @@ export interface TMGameState {
  **/
 export type Id = string;
 export type IdObject<T = {}> = { id: Id } & T;
-export type IdRecord<T> = Record<Id, IdObject<T> | undefined>;
+export type IdRecord<T> = Record<Id, IdObject<T>>;
+export type IdOptionalRecord<T> = Record<Id, IdObject<T> | undefined>;
+export type FlagRecord = IdOptionalRecord<boolean>;
 
 export interface ColumnRow {
   column: number;
@@ -168,9 +168,24 @@ export interface IdCellType {
   terrainRuleId: Id;
 }
 
+export enum TMTerrainType {
+  grass ='grass',
+  ground='ground',
+  forest = 'forest',
+  mountain = 'mountain',
+  sand = 'sand',
+  water = 'water',
+}
+
+export interface ITerrain {
+  readonly type: TMTerrainType;
+  readonly speedK: number;
+  readonly probability: number;
+}
+
 export interface ITerrainRule {
   id: Id;
-  type: string;
+  type: TMTerrainType;
   speedK: number;
   probability: number;
 }
