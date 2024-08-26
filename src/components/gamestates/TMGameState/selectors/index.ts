@@ -1,16 +1,16 @@
-import { ICard, Id, IdCellType, ITerrain, TMGameState, TMTerrainType } from "../TMGameState";
+import { CellTypeId, ICard, Id, ITerrain, TMGameState } from "../TMGameState";
 
 export {};
 
 export type CellFullData = {
   column: number;
   row: number;
-  cellTypeId: Id;
+  cellTypeId: CellTypeId;
   terrain: ITerrain;
 }
 
 export type CellTypeFullData = {
-  id: Id;
+  id: CellTypeId;
   terrain: ITerrain;
 }
 
@@ -34,7 +34,7 @@ export const select = (state: TMGameState) => {
     return state.records.terrainRules[terrainId];
   };
 
-  const cellType = (cellTypeId: Id): CellTypeFullData => {
+  const cellType = (cellTypeId: CellTypeId): CellTypeFullData => {
     const { id, terrainRuleId } = state.records.cellTypes[cellTypeId];
 
     return {

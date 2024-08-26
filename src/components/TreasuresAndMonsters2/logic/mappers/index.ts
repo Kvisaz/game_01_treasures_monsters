@@ -1,4 +1,4 @@
-import { CardType, ICard, IdCellType, IdRecord, ITerrain } from "../../../gamestates";
+import { CardType, CellTypeId, ICard, IdCellType, IdRecord, ITerrain } from "../../../gamestates";
 import { ConfigTerrainRule, IConfig, IConfigCard } from "../../config";
 import { getIdRecordArray } from "../id";
 
@@ -11,12 +11,10 @@ export function mapTerrainRulesFromConfig(terrainRules: ConfigTerrainRule[]): Id
   return terrainRecords;
 }
 
-export function mapCellTypesFromConfig(terrainRules: IdRecord<ConfigTerrainRule>): IdRecord<IdCellType> {
-  const prefix = "cellType";
-  const cellTypes: IdRecord<IdCellType> = {};
+export function mapCellTypesFromConfig(terrainRules: IdRecord<ConfigTerrainRule>): Record<CellTypeId, IdCellType> {
+  const cellTypes: Record<CellTypeId, IdCellType> = {};
   const terrainRulesArray = getIdRecordArray(terrainRules);
-  terrainRulesArray.forEach((rule, i) => {
-    const id = `${prefix}_${i}`;
+  terrainRulesArray.forEach((rule, id) => {
     const cellType: IdCellType = {
       id,
       terrainRuleId: rule.id

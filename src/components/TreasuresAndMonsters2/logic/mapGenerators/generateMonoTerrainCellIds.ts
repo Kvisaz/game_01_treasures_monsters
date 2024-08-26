@@ -2,7 +2,7 @@ import { makeArray2D } from "../../../../common";
 import { Id, select, TMGameState, TMTerrainType } from "../../../gamestates";
 import { IConfig } from "../../config";
 
-export const generateMonoTerrainCellIds = (config: IConfig, state: TMGameState, type: TMTerrainType): Id[][] => {
+export const generateMonoTerrainCellIds = (config: IConfig, state: TMGameState, type: TMTerrainType): number[][] => {
 
   const selector = select(state);
   const cellTypes = selector.cellTypes();

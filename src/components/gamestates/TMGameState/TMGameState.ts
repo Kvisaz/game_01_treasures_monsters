@@ -56,7 +56,7 @@ export interface TMGameState {
   /** нормализованные базы с быстрым доступом по id **/
   records: {
     /** ячейки поля **/
-    cellTypes: IdRecord<IdCellType>;
+    cellTypes: Record<CellTypeId, IdCellType>;
     /** правила земли - тип, скорость перемещения, частота генерации **/
     terrainRules: IdRecord<ITerrain>;
     /** доступные карты в игре **/
@@ -69,7 +69,7 @@ export interface TMGameState {
    *  не изменяем
    *  Id - cellTypes
    **/
-  cells: Id[][];
+  cells: CellTypeId[][];
 
 
   /**
@@ -147,6 +147,7 @@ export interface TMGameState {
  * у каждого гоблина будет разны id
  **/
 export type Id = string;
+export type CellTypeId = number;
 export type IdObject<T = {}> = { id: Id } & T;
 export type IdRecord<T> = Record<Id, IdObject<T>>;
 export type IdOptionalRecord<T> = Record<Id, IdObject<T> | undefined>;
@@ -164,7 +165,7 @@ export interface ColumnRow {
 export type ColumnRowNumber = number;
 
 export interface IdCellType {
-  id: Id;
+  id: number;
   terrainRuleId: Id;
 }
 
