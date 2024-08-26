@@ -1,6 +1,6 @@
 import { ICellState, ITerrainRule } from "../../interfaces";
 import { ColumnRow, makeArray2D } from "../../../../common";
-import { TerrainRule } from "../../config";
+import { ConfigTerrainRule } from "../../config";
 import { getMonoTerrainBuilder, getRandomTerrainBuilder } from "./terrainSelectors";
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
   terrainSelector: TerrainRuleSelector;
 }
 
-type TerrainRuleSelector = (columnRow: ColumnRow) => TerrainRule;
+type TerrainRuleSelector = (columnRow: ColumnRow) => ConfigTerrainRule;
 
 interface IResult {
   cells2D: ICellState[][];

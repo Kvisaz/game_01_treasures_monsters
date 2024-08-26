@@ -1,15 +1,15 @@
 import { ITerrainRule } from "../../interfaces";
-import { TerrainRule, TerrainType } from "../../config";
+import { ConfigTerrainRule, ConfigTerrainType } from "../../config";
 
 /** get mono terrain  **/
-export function getMonoTerrainBuilder(terrainRules: ITerrainRule[], key?: TerrainType): () => TerrainRule {
-  const terrainType: TerrainType = key == null ? "grass" : key;
+export function getMonoTerrainBuilder(terrainRules: ITerrainRule[], key?: ConfigTerrainType): () => ConfigTerrainRule {
+  const terrainType: ConfigTerrainType = key == null ? "grass" : key;
 
-  return () => (terrainRules.find(rule => rule.type === terrainType) ?? terrainRules[0]) as TerrainRule;
+  return () => (terrainRules.find(rule => rule.type === terrainType) ?? terrainRules[0]) as ConfigTerrainRule;
 }
 
 /** get a random terrain type based on probability **/
-export function getRandomTerrainBuilder(terrainRules: ITerrainRule[]): () => TerrainRule {
+export function getRandomTerrainBuilder(terrainRules: ITerrainRule[]): () => ConfigTerrainRule {
   const totalProbability = terrainRules.reduce((sum, rule) => sum + rule.probability, 0);
 
   return () => {
@@ -18,9 +18,9 @@ export function getRandomTerrainBuilder(terrainRules: ITerrainRule[]): () => Ter
     for (const rule of terrainRules) {
       cumulative += rule.probability;
       if (rand < cumulative) {
-        return rule as TerrainRule;
+        return rule as ConfigTerrainRule;
       }
     }
-    return terrainRules[terrainRules.length - 1] as TerrainRule; // Fallback
+    return terrainRules[terrainRules.length - 1] as ConfigTerrainRule; // Fallback
   };
 }

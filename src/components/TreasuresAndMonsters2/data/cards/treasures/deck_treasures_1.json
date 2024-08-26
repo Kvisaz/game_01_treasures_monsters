@@ -1,0 +1,151 @@
+{
+  "name": "Treasure Deck",
+  "id": 1,
+  "type": "treasure",
+  "cards": [
+    {
+      "id": 1,
+      "title": "Golden Crown",
+      "description": "A magnificent crown encrusted with precious gems.",
+      "quote": "Fit for a king.",
+      "bonuses": {
+        "gold": 50
+      }
+    },
+    {
+      "id": 2,
+      "title": "Healing Potion",
+      "description": "A potion that restores health when consumed.",
+      "quote": "A sip of life.",
+      "bonuses": {
+        "health": 1
+      }
+    },
+    {
+      "id": 3,
+      "title": "Sword of Valor",
+      "description": "A legendary sword that increases attack power.",
+      "quote": "Strike with honor.",
+      "bonuses": {
+        "attack": 2
+      }
+    },
+    {
+      "id": 4,
+      "title": "Enchanted Shield",
+      "description": "A shield that enhances defense and fortitude.",
+      "quote": "Stand strong.",
+      "bonuses": {
+        "health": 1
+      }
+    },
+    {
+      "id": 5,
+      "title": "Bag of Gold Coins",
+      "description": "A hefty bag filled with glittering gold coins.",
+      "quote": "Riches beyond measure.",
+      "bonuses": {
+        "gold": 30
+      }
+    },
+    {
+      "id": 6,
+      "title": "Amulet of Strength",
+      "description": "An amulet that grants the wearer immense strength.",
+      "quote": "Power flows through you.",
+      "bonuses": {
+        "attack": 1
+      }
+    },
+    {
+      "id": 7,
+      "title": "Ring of Vitality",
+      "description": "A ring that enhances the wearer's vitality.",
+      "quote": "Life surges within.",
+      "bonuses": {
+        "health": 1
+      }
+    },
+    {
+      "id": 8,
+      "title": "Treasure Map",
+      "description": "A map leading to untold riches.",
+      "quote": "X marks the spot.",
+      "bonuses": {
+        "gold": 40
+      }
+    },
+    {
+      "id": 9,
+      "title": "Mystic Orb",
+      "description": "An orb that enhances magical abilities.",
+      "quote": "Unleash the arcane.",
+      "bonuses": {
+        "attack": 1
+      }
+    },
+    {
+      "id": 10,
+      "title": "Chalice of Healing",
+      "description": "A chalice that restores health when used.",
+      "quote": "Drink to your health.",
+      "bonuses": {
+        "health": 1
+      }
+    },
+    {
+      "id": 11,
+      "title": "Golden Armor",
+      "description": "A suit of armor made of pure gold, offering unparalleled protection.",
+      "quote": "Gleaming and strong.",
+      "bonuses": {
+        "health": 1
+      }
+    },
+    {
+      "id": 12,
+      "title": "Crystal Wand",
+      "description": "A wand that enhances spell casting abilities.",
+      "quote": "Wield the power of the crystals.",
+      "bonuses": {
+        "attack": 1
+      }
+    },
+    {
+      "id": 13,
+      "title": "Jeweled Dagger",
+      "description": "A dagger adorned with jewels, deadly and beautiful.",
+      "quote": "Beauty in the kill.",
+      "bonuses": {
+        "attack": 2
+      }
+    },
+    {
+      "id": 14,
+      "title": "Silver Chalice",
+      "description": "A chalice that restores health when used.",
+      "quote": "Drink and be restored.",
+      "bonuses": {
+        "health": 1
+      }
+    },
+    {
+      "id": 15,
+      "title": "Bag of Gems",
+      "description": "A bag filled with valuable gems.",
+      "quote": "Gems of great worth.",
+      "bonuses": {
+        "gold": 40
+      }
+    },
+    {
+      "id": 16,
+      "title": "Staff of Power",
+      "description": "A staff that greatly enhances magical attacks.",
+      "quote": "Unleash the fury of the ancients.",
+      "bonuses": {
+        "attack": 3
+      }
+    }
+  ]
+}

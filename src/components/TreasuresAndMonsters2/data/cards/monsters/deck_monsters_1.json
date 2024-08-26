@@ -1,0 +1,71 @@
+{
+  "name": "Monsters Deck 1",
+  "id": 1,
+  "type": "monster",
+  "cards": [
+    {
+      "id": 1,
+      "title": "Goblin",
+      "attack": 2,
+      "health": 1,
+      "description": "Small, sneaky, and quick. Loves to ambush unsuspecting adventurers.",
+      "quote": "Sly as a fox, quick as a shadow."
+    },
+    {
+      "id": 2,
+      "title": "Skeleton Warrior",
+      "attack": 3,
+      "health": 2,
+      "description": "A reanimated skeleton wielding a rusty sword.",
+      "quote": "Death cannot stop me!"
+    },
+    {
+      "id": 3,
+      "title": "Orc Brute",
+      "attack": 4,
+      "health": 4,
+      "description": "A strong and fierce warrior with a brutal club.",
+      "quote": "Strength is everything."
+    },
+    {
+      "id": 4,
+      "title": "Dark Elf Archer",
+      "attack": 5,
+      "health": 3,
+      "description": "Skilled in archery and dark magic, attacks from a distance.",
+      "quote": "Silent and deadly."
+    },
+    {
+      "id": 5,
+      "title": "Stone Golem",
+      "attack": 6,
+      "health": 5,
+      "description": "A massive construct made of stone, very hard to damage.",
+      "quote": "Unyielding as the mountains."
+    },
+    {
+      "id": 6,
+      "title": "Fire Elemental",
+      "attack": 7,
+      "health": 4,
+      "description": "A being of living flame, burns everything in its path.",
+      "quote": "Feel the heat of my wrath!"
+    },
+    {
+      "id": 7,
+      "title": "Vampire Lord",
+      "attack": 8,
+      "health": 6,
+      "description": "A powerful vampire with a thirst for blood and dark powers.",
+      "quote": "Your blood will sustain me."
+    },
+    {
+      "id": 8,
+      "title": "Dragon Hatchling",
+      "attack": 8,
+      "health": 8,
+      "description": "A young dragon, already formidable with its fiery breath.",
+      "quote": "Even young, I am fearsome."
+    }
+  ]
+}

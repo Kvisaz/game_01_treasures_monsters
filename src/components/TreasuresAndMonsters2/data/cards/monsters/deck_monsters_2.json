@@ -1,0 +1,71 @@
+{
+  "name": "Monsters Deck 2",
+  "id": 2,
+  "type": "monster",
+  "cards": [
+    {
+      "id": 1,
+      "title": "Giant Rat",
+      "attack": 1,
+      "health": 2,
+      "description": "A large, aggressive rodent found in dark places.",
+      "quote": "Gnawing through darkness."
+    },
+    {
+      "id": 2,
+      "title": "Zombie",
+      "attack": 2,
+      "health": 3,
+      "description": "A slow-moving, undead creature with a hunger for flesh.",
+      "quote": "Hunger drives me forward."
+    },
+    {
+      "id": 3,
+      "title": "Bandit",
+      "attack": 3,
+      "health": 4,
+      "description": "A rogue outlaw, skilled with a blade and cunning tactics.",
+      "quote": "Your gold or your life."
+    },
+    {
+      "id": 4,
+      "title": "Troll",
+      "attack": 4,
+      "health": 5,
+      "description": "A massive creature with regenerative abilities.",
+      "quote": "You can't keep me down."
+    },
+    {
+      "id": 5,
+      "title": "Wraith",
+      "attack": 5,
+      "health": 6,
+      "description": "A ghostly entity that drains the life from its victims.",
+      "quote": "Feel the chill of the grave."
+    },
+    {
+      "id": 6,
+      "title": "Minotaur",
+      "attack": 6,
+      "health": 7,
+      "description": "A powerful beast-man with a deadly axe.",
+      "quote": "Prepare to face the beast."
+    },
+    {
+      "id": 7,
+      "title": "Chimera",
+      "attack": 7,
+      "health": 5,
+      "description": "A monstrous creature with the heads of a lion, goat, and snake.",
+      "quote": "Three heads, triple the terror."
+    },
+    {
+      "id": 8,
+      "title": "Wyvern",
+      "attack": 8,
+      "health": 8,
+      "description": "A winged serpent-like dragon, fierce and venomous.",
+      "quote": "My venom will be your end."
+    }
+  ]
+}

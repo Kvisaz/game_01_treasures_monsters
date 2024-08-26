@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Arannis the Swift",
+    "description": "Elven Ranger: A skilled archer with keen senses and agility.",
+    "quote": "Swift as the wind, silent as the night.",
+    "attack": 4,
+    "health": 3
+  },
+  {
+    "id": 2,
+    "title": "Thorin Ironfist",
+    "description": "Dwarven Warrior: A stout warrior with unmatched strength and endurance.",
+    "quote": "Through stone and steel, I endure.",
+    "attack": 5,
+    "health": 4
+  },
+  {
+    "id": 3,
+    "title": "Sir Galahad the Brave",
+    "description": "Human Paladin: A holy knight who protects the weak and vanquishes evil.",
+    "quote": "In the light, I stand firm.",
+    "attack": 3,
+    "health": 5
+  },
+  {
+    "id": 4,
+    "title": "Gruk Bloodfury",
+    "description": "Orc Berserker: A ferocious fighter driven by rage and fury.",
+    "quote": "Blood and thunder!",
+    "attack": 6,
+    "health": 3
+  },
+  {
+    "id": 5,
+    "title": "Eldrin the Wise",
+    "description": "Mystic Sorcerer: A powerful spellcaster who wields arcane magic.",
+    "quote": "Magic is the key to the universe.",
+    "attack": 5,
+    "health": 2
+  }
+]

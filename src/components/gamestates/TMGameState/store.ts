@@ -11,7 +11,7 @@ const voidState: TMGameState = {
   playerAttack: 0,
   playerGold: 0,
   playerHealth: 0,
-  playerHeroCardId: 0,
+  playerHeroCardId: '-1',
   playerHeroCardPlace: { column: -1, row: -1 },
   playerTreasures: {},
   records: { cards: {}, cellTypes: {}, terrainRules: {} },

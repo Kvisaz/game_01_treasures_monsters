@@ -52,15 +52,17 @@
  * - WIN сокровища собраны до определенной нормы и жизнь игрока > 0
  * - FAIL - игрок убит, жизнь игрока <= 0
  **/
+import { ConfigTerrainRule } from "../../TreasuresAndMonsters2/config";
+
 export interface TMGameState {
   /** нормализованные базы с быстрым доступом по id **/
   records: {
     /** ячейки поля **/
-    cellTypes: Record<Id, ICellType>;
+    cellTypes: IdRecord<IdCellType>;
     /** правила земли - тип, скорость перемещения, частота генерации **/
-    terrainRules: Record<Id, ITerrainRule>;
+    terrainRules: IdRecord<ConfigTerrainRule>;
     /** доступные карты в игре **/
-    cards: Record<Id, ICard>;
+    cards: IdRecord<ICard>;
   };
 
   /**
@@ -79,7 +81,7 @@ export interface TMGameState {
   playerHeroCardId: Id;
   playerHeroCardPlace: ColumnRow;
   /** сокровища игрока не видны на поле, но влияют на его параметры **/
-  playerTreasures: CardFlagRecord;
+  playerTreasures: IdRecord<boolean>;
   /** параметры которые могут меняться от сбора сокровищ  **/
 
   /** @subscribe -UI-subscribe **/
@@ -103,35 +105,35 @@ export interface TMGameState {
    * - ... если будут перемещаться - будут передвигать за собой сокровища с теми же координатами
    * что означает что монстры будут собирать сокровища тоже
    *
-   * Id - cards
+   * Id - card, value = координаты
    **/
-  monstersInGame: CardsInGameRecord;
+  monstersInGame: IdRecord<ColumnRowNumber>;
 
   /** Поверженные монстры
    *
-   * Id - cards
+   * Id - cards, value = true, если убит
    * **/
-  monstersGraveYard: CardFlagRecord;
+  monstersGraveYard: IdRecord<boolean>;
 
   /**
    * Сокровища
    * - видны на поле, если их координаты не совпадают с закрытым подземельем или сокровищем
    *
-   * Id - cards
+   * Id - card, value = координаты
    **/
-  treasuresInGame: CardsInGameRecord;
+  treasuresInGame: IdRecord<ColumnRowNumber>;
 
   /** Подземелья
    *  - СКРЫВАЮТ  сокровища и монстров с теми же координатами, пока подземелье не откроют
    *
-   *  Id - cards
+   *  Id - card, value = координаты
    ***/
-
-  dungeonsInGame: CardsInGameRecord;
+  dungeonsInGame: IdRecord<ColumnRowNumber>;
 
   /** вскрытые подземелья помечаются этой записью
-   * Id - cards **/
-  dungeonsOpened: CardFlagRecord;
+   * Id - card, value = true, если открыто
+   **/
+  dungeonsOpened: IdRecord<boolean>;
 }
 
 /*********************
@@ -146,15 +148,9 @@ export interface TMGameState {
  * допустим в колоду добавили три гоблина
  * у каждого гоблина будет разны id
  **/
-type Id = number;
-
-/** рекорды для записи флагов карт,
- * должны уверенно типизировать неопределенность **/
-type CardFlagRecord = Record<Id, boolean | undefined>;
-
-/** рекорды для записи положения карт на поле, должны уверенно типизировать неопределенность **/
-type CardsInGameRecord = Record<ColumnRowNumber, Id | undefined>;
-
+export type Id = string;
+export type IdObject<T = {}> = { id: Id } & T;
+export type IdRecord<T> = Record<Id, IdObject<T> | undefined>;
 
 export interface ColumnRow {
   column: number;
@@ -167,7 +163,7 @@ export interface ColumnRow {
  **/
 export type ColumnRowNumber = number;
 
-interface ICellType {
+export interface IdCellType {
   id: Id;
   terrainRuleId: Id;
 }
@@ -192,17 +188,20 @@ export interface ICard {
   id: Id;
   type: CardType;
   title: string;
-  description: number;
+  description: string;
   quote: string;
 }
 
 export enum CardType {
   /** герой или монстр, параметры одинаковы, это сущность которая живет и дерется и движется сама **/
-  creature = "creature",
+  monster = "monster",
+  player = "player",
   /** сокровища с денежным или иным эффектом - переходят к существами или валяются просто так **/
   treasure = "treasure",
   /** локация, в которой неизвестно что скрывается - пока такой функционал **/
-  dungeon = "dungeon"
+  dungeon = "dungeon",
+
+  not_set='not_set'
 }
 
 /** Существо имеет атаку и здоровье, другие свойства пока не включаем **/
