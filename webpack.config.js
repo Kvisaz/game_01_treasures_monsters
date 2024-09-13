@@ -6,14 +6,9 @@ const os = require("os");
 
 function getChromeOsName() {
   const platform = os.platform();
-
   if (platform === "darwin") {
     return "Google Chrome";
-  } else if (platform === "linux") {
-    return "google-chrome";
-  } else {
-    return "chrome";
-  }
+  } 
 }
 
 module.exports = (env, argv) => {
